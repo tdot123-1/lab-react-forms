@@ -28,11 +28,11 @@ const AddStudent = ({ handleAddStudent }) => {
 
     // change state of targetted input value 
     const handleInput = (event) => {
-        const value = event.target.value;
-        setNewStudentInput({
-            ...newStudentInput,
-            [event.target.name]: value,
-        });
+        const {name, type, value, checked } = event.target;
+        setNewStudentInput((prevState) => ({
+            ...prevState,
+            [name]: type === "checkbox" ? checked : value,
+        }));
     }
 
     // prevent default, add student, reset state
@@ -48,28 +48,28 @@ const AddStudent = ({ handleAddStudent }) => {
             <div>
                 <label>
                 Full Name
-                <input name="fullName" type="text" placeholder="Full Name" 
+                <input name="fullName" type="text" placeholder="Full Name" required
                     value={newStudentInput.fullName} onChange={handleInput}
                 />
                 </label>
 
                 <label>
                 Profile Image
-                <input name="image" type="url" placeholder="Profile Image"
+                <input name="image" type="url" placeholder="Profile Image" required
                     value={newStudentInput.image} onChange={handleInput}
                 />
                 </label>
 
                 <label>
                 Phone
-                <input name="phone" type="tel" placeholder="Phone" 
+                <input name="phone" type="tel" placeholder="Phone" required
                     value={newStudentInput.phone} onChange={handleInput}
                 />
                 </label>
 
                 <label>
                 Email
-                <input name="email" type="email" placeholder="Email"
+                <input name="email" type="email" placeholder="Email" required
                     value={newStudentInput.email} onChange={handleInput}
                 />
                 </label>
@@ -78,7 +78,7 @@ const AddStudent = ({ handleAddStudent }) => {
             <div>
                 <label>
                 Program
-                <select name="program" value={newStudentInput.program} onChange={handleInput}>
+                <select name="program" value={newStudentInput.program} onChange={handleInput} required>
                     <option value="">-- None --</option>
                     <option value="Web Dev">Web Dev</option>
                     <option value="UXUI">UXUI</option>
